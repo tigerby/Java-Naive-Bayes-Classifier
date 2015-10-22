@@ -1,4 +1,4 @@
-package de.daslaboratorium.machinelearning.classifier;
+package com.tigerby.examples.ml.naivebayes;
 
 import java.util.Collection;
 import java.util.Dictionary;

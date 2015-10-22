@@ -1,4 +1,4 @@
-package de.daslaboratorium.machinelearning.classifier;
+package com.tigerby.examples.ml.naivebayes;
 
 /**
  * Simple interface defining the method to calculate the feature probability.

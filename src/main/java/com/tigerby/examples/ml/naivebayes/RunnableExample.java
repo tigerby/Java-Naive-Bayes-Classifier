@@ -1,9 +1,6 @@
-package de.daslaboratorium.machinelearning.bayes.example;
+package com.tigerby.examples.ml.naivebayes;
 
 import java.util.Arrays;
-
-import de.daslaboratorium.machinelearning.bayes.BayesClassifier;
-import de.daslaboratorium.machinelearning.bayes.Classifier;
 
 public class RunnableExample {
 
