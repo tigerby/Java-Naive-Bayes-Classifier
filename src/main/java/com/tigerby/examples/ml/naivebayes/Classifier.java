@@ -14,10 +14,9 @@ import java.util.Set;
  * basic probabilities – both category and feature probabilities. The classify
  * function has to be implemented by the concrete classifier class.
  *
- * @author Philipp Nolte
- *
  * @param <T> A feature class
  * @param <K> A category class
+ * @author Philipp Nolte
  */
 public abstract class Classifier<T, K> implements IFeatureProbability<T, K> {
 
@@ -28,7 +27,7 @@ public abstract class Classifier<T, K> implements IFeatureProbability<T, K> {
 
     /**
      * Initial capacity of feature dictionaries. It should be quite big, because
-     * the features will quickly outnumber the categories. 
+     * the features will quickly outnumber the categories.
      */
     private static final int INITIAL_FEATURE_DICTIONARY_CAPACITY = 32;
 
@@ -71,7 +70,7 @@ public abstract class Classifier<T, K> implements IFeatureProbability<T, K> {
      */
     public void reset() {
         this.featureCountPerCategory =
-                new Hashtable<K, Dictionary<T,Integer>>(
+                new Hashtable<K, Dictionary<T, Integer>>(
                         Classifier.INITIAL_CATEGORY_DICTIONARY_CAPACITY);
         this.totalFeatureCount =
                 new Hashtable<T, Integer>(
@@ -108,7 +107,7 @@ public abstract class Classifier<T, K> implements IFeatureProbability<T, K> {
     public int getCategoriesTotal() {
         int toReturn = 0;
         for (Enumeration<Integer> e = this.totalCategoryCount.elements();
-                e.hasMoreElements();) {
+             e.hasMoreElements(); ) {
             toReturn += e.nextElement();
         }
         return toReturn;
@@ -141,16 +140,13 @@ public abstract class Classifier<T, K> implements IFeatureProbability<T, K> {
      * equal to telling the classifier, that this feature has occurred in this
      * category.
      *
-     * @param feature The feature, which count to increase.
+     * @param feature  The feature, which count to increase.
      * @param category The category the feature occurred in.
      */
     public void incrementFeature(T feature, K category) {
-        Dictionary<T, Integer> features =
-                this.featureCountPerCategory.get(category);
+        Dictionary<T, Integer> features = this.featureCountPerCategory.get(category);
         if (features == null) {
-            this.featureCountPerCategory.put(category,
-                    new Hashtable<T, Integer>(
-                            Classifier.INITIAL_FEATURE_DICTIONARY_CAPACITY));
+            this.featureCountPerCategory.put(category, new Hashtable<T, Integer>(Classifier.INITIAL_FEATURE_DICTIONARY_CAPACITY));
             features = this.featureCountPerCategory.get(category);
         }
         Integer count = features.get(feature);
@@ -180,7 +176,7 @@ public abstract class Classifier<T, K> implements IFeatureProbability<T, K> {
             this.totalCategoryCount.put(category, 0);
             count = this.totalCategoryCount.get(category);
         }
-       this.totalCategoryCount.put(category, ++count);
+        this.totalCategoryCount.put(category, ++count);
     }
 
     /**
@@ -188,7 +184,7 @@ public abstract class Classifier<T, K> implements IFeatureProbability<T, K> {
      * equal to telling the classifier that this feature was classified once in
      * the category.
      *
-     * @param feature The feature to decrement the count for.
+     * @param feature  The feature to decrement the count for.
      * @param category The category.
      */
     public void decrementFeature(T feature, K category) {
@@ -243,7 +239,7 @@ public abstract class Classifier<T, K> implements IFeatureProbability<T, K> {
      * Retrieves the number of occurrences of the given feature in the given
      * category.
      *
-     * @param feature The feature, which count to retrieve.
+     * @param feature  The feature, which count to retrieve.
      * @param category The category, which the feature occurred in.
      * @return The number of occurrences of the feature in the category.
      */
@@ -258,7 +254,7 @@ public abstract class Classifier<T, K> implements IFeatureProbability<T, K> {
 
     /**
      * Retrieves the number of occurrences of the given category.
-     * 
+     *
      * @param category The category, which count should be retrieved.
      * @return The number of occurrences.
      */
@@ -284,12 +280,11 @@ public abstract class Classifier<T, K> implements IFeatureProbability<T, K> {
      * <code>0.5</code>. The probability defaults to the overall feature
      * probability.
      *
-     * @see de.daslaboratorium.machinelearning.classifier.Classifier#featureProbability(Object, Object)
-     * @see de.daslaboratorium.machinelearning.classifier.Classifier#featureWeighedAverage(Object, Object, IFeatureProbability, float, float)
-     *
-     * @param feature The feature, which probability to calculate.
+     * @param feature  The feature, which probability to calculate.
      * @param category The category.
      * @return The weighed average probability.
+     * @see de.daslaboratorium.machinelearning.classifier.Classifier#featureProbability(Object, Object)
+     * @see de.daslaboratorium.machinelearning.classifier.Classifier#featureWeighedAverage(Object, Object, IFeatureProbability, float, float)
      */
     public float featureWeighedAverage(T feature, K category) {
         return this.featureWeighedAverage(feature, category,
@@ -301,15 +296,14 @@ public abstract class Classifier<T, K> implements IFeatureProbability<T, K> {
      * overall weight of <code>1.0</code>, an assumed probability of
      * <code>0.5</code> and the given object to use for probability calculation.
      *
-     * @see de.daslaboratorium.machinelearning.classifier.Classifier#featureWeighedAverage(Object, Object, IFeatureProbability, float, float)
-     *
-     * @param feature The feature, which probability to calculate.
-     * @param category The category.
+     * @param feature    The feature, which probability to calculate.
+     * @param category   The category.
      * @param calculator The calculating object.
      * @return The weighed average probability.
+     * @see de.daslaboratorium.machinelearning.classifier.Classifier#featureWeighedAverage(Object, Object, IFeatureProbability, float, float)
      */
     public float featureWeighedAverage(T feature, K category,
-            IFeatureProbability<T, K> calculator) {
+                                       IFeatureProbability<T, K> calculator) {
         return this.featureWeighedAverage(feature, category,
                 calculator, 1.0f, 0.5f);
     }
@@ -319,16 +313,15 @@ public abstract class Classifier<T, K> implements IFeatureProbability<T, K> {
      * the given weight and an assumed probability of <code>0.5</code> and the
      * given object to use for probability calculation.
      *
-     * @see de.daslaboratorium.machinelearning.classifier.Classifier#featureWeighedAverage(Object, Object, IFeatureProbability, float, float)
-     *
-     * @param feature The feature, which probability to calculate.
-     * @param category The category.
+     * @param feature    The feature, which probability to calculate.
+     * @param category   The category.
      * @param calculator The calculating object.
-     * @param weight The feature weight.
+     * @param weight     The feature weight.
      * @return The weighed average probability.
+     * @see de.daslaboratorium.machinelearning.classifier.Classifier#featureWeighedAverage(Object, Object, IFeatureProbability, float, float)
      */
     public float featureWeighedAverage(T feature, K category,
-            IFeatureProbability<T, K> calculator, float weight) {
+                                       IFeatureProbability<T, K> calculator, float weight) {
         return this.featureWeighedAverage(feature, category,
                 calculator, weight, 0.5f);
     }
@@ -338,16 +331,16 @@ public abstract class Classifier<T, K> implements IFeatureProbability<T, K> {
      * the given weight, the given assumed probability and the given object to
      * use for probability calculation.
      *
-     * @param feature The feature, which probability to calculate.
-     * @param category The category.
-     * @param calculator The calculating object.
-     * @param weight The feature weight.
+     * @param feature            The feature, which probability to calculate.
+     * @param category           The category.
+     * @param calculator         The calculating object.
+     * @param weight             The feature weight.
      * @param assumedProbability The assumed probability.
      * @return The weighed average probability.
      */
     public float featureWeighedAverage(T feature, K category,
-            IFeatureProbability<T, K> calculator, float weight,
-            float assumedProbability) {
+                                       IFeatureProbability<T, K> calculator, float weight,
+                                       float assumedProbability) {
 
         /*
          * use the given calculating object or the default method to calculate
@@ -356,13 +349,13 @@ public abstract class Classifier<T, K> implements IFeatureProbability<T, K> {
          */
         final float basicProbability =
                 (calculator == null)
-                    ? this.featureProbability(feature, category)
-                            : calculator.featureProbability(feature, category);
+                        ? this.featureProbability(feature, category)
+                        : calculator.featureProbability(feature, category);
 
         Integer totals = this.totalFeatureCount.get(feature);
         if (totals == null)
             totals = 0;
-        return (weight * assumedProbability + totals  * basicProbability)
+        return (weight * assumedProbability + totals * basicProbability)
                 / (weight + totals);
     }
 
